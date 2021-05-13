@@ -1,5 +1,4 @@
 #aaj apun banaeyga library
-
 class book:
     def __init__(self,id,title,author,type,price,status):
         self.book_id = id
@@ -8,35 +7,31 @@ class book:
         self.book_type = type
         self.book_price = price
         self.book_status = status
-        self.book_details = [self.book_id,self.book_title,self.book_author,self.book_type,self.book_price,self.book_status]
-
+        
 class library:
     def __init__(self,book_list):
         self.book_list = book_list
-        #print(self.book_list)
 
     def issue(self,title,type):
-        self.title = title
-        self.type = type
         for i in self.book_list:
-            if i[1] == self.title and i[3] == self.type and i[5] == 'available':
-                i[5] = 'unavailable'
-                for j in self.book_list:
-                    print(j[1] + "--->" + j[5])
-                break
+            if i.book_title ==title and i.book_type == type and i.book_status == 'available':
+                i.book_status = 'unavailable'
+                return True
         else:
-            print("Book Not Found")
+            return False
 
     def costly(self,author):
-        maxi = [0]
-        self.author = author
+        maxi = 0
+        maxtitle = None
         for i in self.book_list:
-            if i[2] == author:
-                maxi.append(i[4])
-        if max(maxi) == 0:
-            print("Author Not Found")
+            if i.book_author == author:
+                if i.book_price > maxi:
+                    maxi=i.book_price
+                    maxtitle=i
+        if maxtitle == None:
+            return None
         else:
-            print(max(maxi))
+            return maxtitle
 
 n = int(input())
 l = []
@@ -44,21 +39,32 @@ while(n > 0):
     id = int(input())
     title = input().lower()
     author = input().lower()
+    #print(author)
     type = input().lower()
     price = int(input())
     status = input().lower()
     obj = book(id,title,author,type,price,status)
-    l1 = obj.book_details
-    l.append(l1)
+    #l1 = obj.book_details
+    l.append(obj)
     n = n - 1
 
 obj1 = library(l)
 title = input().lower()
 type = input().lower()
 author = input().lower()
-obj1.issue(title,type)
-obj1.costly(author)
+a1=obj1.issue(title,type)
+a2=obj1.costly(author)
 
+if a1==False:
+    print('Book not found')
+else:
+    for i in l:
+        print(i.book_title,'-->',i.book_status)
+
+if a2==None:
+    print('Author not found')
+else:
+    print(a2)
 # 101 to kill a mockingbird harper lee novel 120 available
 # 102 one hundered years of solitude gabriel garcia marquez novel 100 unavailable
 # 103 go set a watchman harper lee novel 200 available
