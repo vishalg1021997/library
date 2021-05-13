@@ -64,7 +64,7 @@ else:
 if a2==None:
     print('Author not found')
 else:
-    print(a2)
+    print(a2.book_title)
 # 101 to kill a mockingbird harper lee novel 120 available
 # 102 one hundered years of solitude gabriel garcia marquez novel 100 unavailable
 # 103 go set a watchman harper lee novel 200 available
